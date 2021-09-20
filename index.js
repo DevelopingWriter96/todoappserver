@@ -24,7 +24,7 @@ const updateTodos = () => {
     root.innerHTML = ``
 
     todos.map((todo) => {
-        root.innerHTML += `<div class="card" style="width: 18rem;">
+        root.innerHTML += `<div class="card" id="todo${todo.id}" style="width: 18rem;">
                                 <div class="card-body">
                                     <h5 class="card-title">${todo.taskName}</h5>
                                     <p class="card-text">${todo.category}</p>
