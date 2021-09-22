@@ -2,19 +2,16 @@ let todos = [
     {
         id: 1,
         taskName: 'Task 1',
-        category: 'Test Category 1',
         completed: 'Incomplete',
     },
     {
         id: 2,
         taskName: 'Task 2',
-        category: 'Test Category 2',
         completed: 'Incomplete',
     },
     {
         id: 3,
         taskName: 'Task 3',
-        category: 'Test Category 1',
         completed: 'Incomplete',
     },
 ]
@@ -28,11 +25,21 @@ const updateTodos = () => {
             `<li class="card">
                 <div class="card-body">
                     <input type="checkbox" id="task${todo.id}" name="task${todo.id}" value="Bike">
-                    <label for="task${todo.id}"> ${todo.taskName}</label><br>    
-                    <p class="card-text category">${todo.category}</p>
+                    <label for="task${todo.id}"> ${todo.taskName}</label><br>
                 </div>
             </li>`
     })
     root.innerHTML += `</ul>`
 }
-window.onload = updateTodos()
+
+updateTodos();
+document.querySelector("#addTaskButton").addEventListener('click', (event) => {
+    let inputBox = document.querySelector('#newTaskName');
+    let newTaskName = inputBox.value
+    let newId = todos.length + 1
+
+    inputBox.value = "";
+
+    todos.push({ id: newId, taskName: newTaskName, completed: false })
+    updateTodos();
+})
