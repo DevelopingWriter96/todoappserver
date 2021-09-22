@@ -11,13 +11,13 @@
 
 .card {
   margin: .3rem;
-}
-
-.category {
-  font-size: small;
-  color: rgb(143, 140, 140);
+  /* width: 15rem; */
 }
 
 .card-body:hover {
   cursor: pointer;
+}
+
+#addTaskButton {
+  margin: .3rem;
 }
