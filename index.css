@@ -1,13 +1,23 @@
 #root {
-    display: flex;
-    justify-content: center;
-}
-#title {
-    display: flex;
-    justify-content: center;
-    margin: 1rem;
+  display: flex;
+  justify-content: center;
 }
 
-.card{
-    margin:.3rem;
+#title {
+  display: flex;
+  justify-content: center;
+  margin: 1rem;
+}
+
+.card {
+  margin: .3rem;
+}
+
+.category {
+  font-size: small;
+  color: rgb(143, 140, 140);
+}
+
+.card-body:hover {
+  cursor: pointer;
 }
