@@ -22,7 +22,7 @@ const updateTodos = () => {
 
     todos.map((todo) => {
         taskList.innerHTML +=
-            `<li class="card">
+            `<li class="card w-50">
                 <div class="card-body">
                     <button type="button" class="btn-close float-end" aria-label="Close" onclick="deleteTodo(${todo.id})"></button>
                     <input type="checkbox" id="task${todo.id}" name="task${todo.id}" onclick="completeTodo(${todo.id})">
@@ -69,3 +69,11 @@ function completeTodo(id) {
     })
 }
 
+function deleteCompleted() {
+    todos = todos.filter(element => {
+        if(element.completed === false){
+            return element
+        }
+    })
+    updateTodos()
+}
