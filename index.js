@@ -16,6 +16,7 @@ let todos = [
     },
 ]
 
+
 const updateTodos = () => {
     let taskList = document.querySelector('#taskList')
     taskList.innerHTML = `<ul>`
@@ -27,6 +28,7 @@ const updateTodos = () => {
                     <button type="button" class="btn-close float-end" aria-label="Close" onclick="deleteTodo(${todo.id})"></button>
                     <input type="checkbox" id="task${todo.id}" name="task${todo.id}" onclick="completeTodo(${todo.id})">
                     <label for="task${todo.id}"> ${todo.taskName}</label><br>
+                    <button type="button" onclick="editTodo(${todo.id})" class= "text-primary">Edit</button>
                 </div>
             </li>`
     })
@@ -77,3 +79,32 @@ function deleteCompleted() {
     })
     updateTodos()
 }
+
+let todoBeingEdited = [];
+
+//edit 
+function editTodo(index){
+    let todo = todos[index - 1];
+    todoBeingEdited.push(todo);
+    document.getElementById('newTaskName').value = todo.taskName;
+    document.getElementById('saveTaskButton').style.display = 'block';
+    document.getElementById('addTaskButton').style.display = 'none'; 
+}
+
+//save 
+const saveTodo = () => {
+    let value = document.getElementById('newTaskName').value;
+    let todoToSave = todoBeingEdited.pop();
+    todos[todoToSave.id - 1].taskName = value;
+    document.getElementById('newTaskName').value = ''; 
+    document.getElementById('saveTaskButton').style.display = 'none';
+    document.getElementById('addTaskButton').style.display = 'block';
+    updateTodos()
+}
+
+document.getElementById('saveTaskButton').addEventListener('click', () => {
+    saveTodo();
+})
+
+
+
