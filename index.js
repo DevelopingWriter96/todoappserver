@@ -7,7 +7,7 @@ let todos = [
     {
         id: 2,
         taskName: 'Task 2',
-        completed: false,
+        completed: true,
     },
     {
         id: 3,
@@ -26,7 +26,7 @@ const updateTodos = () => {
             `<li class="card w-50">
                 <div class="card-body">
                     <button type="button" class="btn-close float-end" aria-label="Close" onclick="deleteTodo(${todo.id})"></button>
-                    <input type="checkbox" id="task${todo.id}" name="task${todo.id}" onclick="completeTodo(${todo.id})">
+                    <input type="checkbox" id="task${todo.id}" name="task${todo.id}" onclick="completeTodo(${todo.id})" ${todo.completed == true ? 'checked' : ''}>
                     <label for="task${todo.id}"> ${todo.taskName}</label><br>
                     <button type="button" onclick="editTodo(${todo.id})" class= "text-primary">Edit</button>
                 </div>
