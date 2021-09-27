@@ -28,7 +28,7 @@ const updateTodos = () => {
                     <button type="button" class="btn-close float-end" aria-label="Close" onclick="deleteTodo(${todo.id})"></button>
                     <input type="checkbox" id="task${todo.id}" name="task${todo.id}" onclick="completeTodo(${todo.id})" ${todo.completed == true ? 'checked' : ''}>
                     <label for="task${todo.id}"> ${todo.taskName}</label><br>
-                    <button type="button" onclick="editTodo(${todo.id})" class= "text-primary">Edit</button>
+                    <button type="button" onclick="editTodo(${todo.id})" class= "btn btn-success btn-sm float-end">Edit</button>
                 </div>
             </li>`
     })
