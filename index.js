@@ -47,7 +47,7 @@ const updateTodos = () => {
 
 }
 
-
+// event listener for add task btn
 document.querySelector("#addTaskButton").addEventListener('click', () => {
     let inputBox = document.querySelector('#newTaskName');
     let newTaskName = inputBox.value
@@ -58,6 +58,19 @@ document.querySelector("#addTaskButton").addEventListener('click', () => {
 
     todos.push({ id: newId, taskName: newTaskName, completed: false, category: newCategory })
     updateTodos();
+})
+
+// event listener for add category btn
+document.querySelector("#addTaskButton").addEventListener('click', () => {
+    let newCategory = document.querySelector('#newCategoryName').value
+    
+    if(!categories.includes(newCategory)){
+        categories.push(newCategory)
+    }
+
+    inputBox.value = "";
+    
+    getAllCategories()
 })
 
 updateTodos();
