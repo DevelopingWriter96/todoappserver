@@ -57,7 +57,6 @@ document.querySelector("#addTaskButton").addEventListener('click', () => {
     if(newTaskName !== ''){
         let newId = todos.length + 1
         let newCategory = document.querySelectorAll('#filterDropdown')[0].value // new todo select will always be first
-        console.log(newCategory)
         if(newCategory === 'Select Category'){
             newCategory = 'Uncategorized'
         }
@@ -66,7 +65,6 @@ document.querySelector("#addTaskButton").addEventListener('click', () => {
 
         todos.push({ id: newId, taskName: newTaskName, completed: false, category: newCategory })
         updateTodos();
-        console.log(todos)
     }
 })
 
