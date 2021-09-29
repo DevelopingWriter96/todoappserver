@@ -51,13 +51,13 @@ const updateTodos = () => {
 
 // event listener for add task btn
 document.querySelector("#addTaskButton").addEventListener('click', () => {
-    
+
     let inputBox = document.querySelector('#newTaskName');
     let newTaskName = inputBox.value
-    if(newTaskName !== ''){
+    if (newTaskName !== '') {
         let newId = todos.length + 1
         let newCategory = document.querySelectorAll('#filterDropdown')[0].value // new todo select will always be first
-        if(newCategory === 'Select Category'){
+        if (newCategory === 'Select Category') {
             newCategory = 'Uncategorized'
         }
 
@@ -72,20 +72,20 @@ document.querySelector("#addTaskButton").addEventListener('click', () => {
 document.querySelector("#addCategoryButton").addEventListener('click', () => {
     let inputBox = document.querySelector('#newCategoryName')
     let newCategory = inputBox.value
-    
-    if(!categories.includes(newCategory)){
+
+    if (!categories.includes(newCategory) && newCategory != "") {
         categories.push(newCategory)
+
+        let dropdowns = document.querySelectorAll('#filterDropdown')
+        dropdowns.forEach((dropdown) => {
+            const newElement = document.createElement('option');
+            newElement.value = newCategory
+            newElement.innerHTML = newCategory
+            dropdown.appendChild(newElement)
+        })
     }
 
-    let dropdowns = document.querySelectorAll('#filterDropdown')
-    dropdowns.forEach((dropdown) => {
-        const newElement = document.createElement('option');
-        newElement.value = newCategory
-        newElement.innerHTML = newCategory
-        dropdown.appendChild(newElement)
-    })
-
-    inputBox.value = "";  
+    inputBox.value = "";
 })
 
 updateTodos();
