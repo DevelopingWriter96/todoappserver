@@ -28,10 +28,12 @@ const updateTodos = () => {
         taskList.innerHTML +=
             `<li class="card w-50">
                 <div class="card-body">
-                    <button type="button" id="task${todo.id}Close" class="btn-close float-end" aria-label="Close"></button>
+                    <div>
+                    <button type="button" id="task${todo.id}Close" class="btn-close float-end ms-2 mt-1" aria-label="Close"></button>
+                        <button type="button" id="task${todo.id}Edit" class="btn btn-success btn-sm float-end">Edit</button>
+                    </div>
                     <input type="checkbox" id="task${todo.id}Completed" name="task${todo.id}" ${todo.completed == true ? 'checked' : ''}>
                     <label for="task${todo.id}"> ${todo.taskName}</label><br>
-                    <button type="button" id="task${todo.id}Edit" class="btn btn-success btn-sm float-end">Edit</button>
                 </div>
             </li>`;
 
@@ -47,17 +49,43 @@ const updateTodos = () => {
 
 }
 
-
+// event listener for add task btn
 document.querySelector("#addTaskButton").addEventListener('click', () => {
+    
     let inputBox = document.querySelector('#newTaskName');
     let newTaskName = inputBox.value
-    let newId = todos.length + 1
-    let newCategory = document.querySelector('#newCategoryName').value
+    if(newTaskName !== ''){
+        let newId = todos.length + 1
+        let newCategory = document.querySelectorAll('#filterDropdown')[0].value // new todo select will always be first
+        if(newCategory === 'Select Category'){
+            newCategory = 'Uncategorized'
+        }
 
-    inputBox.value = "";
+        inputBox.value = "";
 
-    todos.push({ id: newId, taskName: newTaskName, completed: false, category: newCategory })
-    updateTodos();
+        todos.push({ id: newId, taskName: newTaskName, completed: false, category: newCategory })
+        updateTodos();
+    }
+})
+
+// event listener for add category btn
+document.querySelector("#addCategoryButton").addEventListener('click', () => {
+    let inputBox = document.querySelector('#newCategoryName')
+    let newCategory = inputBox.value
+    
+    if(!categories.includes(newCategory)){
+        categories.push(newCategory)
+    }
+
+    let dropdowns = document.querySelectorAll('#filterDropdown')
+    dropdowns.forEach((dropdown) => {
+        const newElement = document.createElement('option');
+        newElement.value = newCategory
+        newElement.innerHTML = newCategory
+        dropdown.appendChild(newElement)
+    })
+
+    inputBox.value = "";  
 })
 
 updateTodos();
@@ -126,10 +154,14 @@ function getAllCategories() {
 
     categories = todos.map((todo) => {
         if (!categories.includes(todo.category) && todo.category != '') {
-            const newElement = document.createElement('option');
-            newElement.value = `${todo.category}`
-            newElement.innerHTML = `${todo.category}`
-            document.querySelector("#filterDropdown").appendChild(newElement);
+
+            let dropdowns = document.querySelectorAll("#filterDropdown");
+            dropdowns.forEach((dropdown) => {
+                const newElement = document.createElement('option');
+                newElement.value = `${todo.category}`
+                newElement.innerHTML = `${todo.category}`
+                dropdown.appendChild(newElement)
+            })
             return todo.category
         }
     })
