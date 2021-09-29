@@ -29,24 +29,37 @@ const updateTodos = () => {
             `<li class="card w-50">
                 <div class="card-body">
                     <div>
-                    <button type="button" id="task${todo.id}Close" class="btn-close float-end ms-2 mt-1" aria-label="Close"></button>
-                        <button type="button" id="task${todo.id}Edit" class="btn btn-success btn-sm float-end">Edit</button>
+                    <button type="button" id="task${todo.id}Close" class="btn-close float-end ms-2 mt-1" aria-label="Close" todoID="${todo.id}" buttonFunc="close"></button>
+                        <button type="button" id="task${todo.id}Edit" class="btn btn-success btn-sm float-end" todoID="${todo.id}" buttonFunc="edit">Edit</button>
                     </div>
-                    <input type="checkbox" id="task${todo.id}Completed" name="task${todo.id}" ${todo.completed == true ? 'checked' : ''}>
+                    <input type="checkbox" id="task${todo.id}Completed" name="task${todo.id}" ${todo.completed == true ? 'checked' : ''} todoId="${todo.id}" buttonFunc="complete">
                     <label for="task${todo.id}"> ${todo.taskName}</label><br>
                 </div>
             </li>`;
-
-        // document.querySelector(`#task${todo.id}Completed`).addEventListener('click', completeTodo(todo.id));
-        // document.querySelector(`#task${todo.id}Close`).addEventListener('change', deleteTodo(todo.id));
-        // console.log(`#task${todo.id}Close`)
-        // console.log(document.querySelector(`#task${todo.id}Close`))
-        // // document.querySelector(`#task${todo.id}Edit`).addEventListener('click', editTodo(todo.id));
     })
     taskList.innerHTML += `</ul>`
 
+    taskList.addEventListener('click', eventClickHandler)
+
     getAllCategories()
 
+}
+
+function eventClickHandler(event){
+    // console.log(event)
+    // console.log(event.target.id)
+    // console.log(event.target.attributes.buttonFunc.value)
+    // console.log(event.target.attributes.todoId)
+
+    if(event.target.attributes.buttonFunc.value == "complete"){
+        completeTodo(event.target.attributes.todoId.value)
+    }
+    else if(event.target.attributes.buttonFunc.value == "close"){
+        deleteTodo(event.target.attributes.todoId.value)
+    }
+    else if(event.target.attributes.buttonFunc.value == "edit"){
+        editTodo(event.target.attributes.todoId.value)
+    }
 }
 
 // event listener for add task btn
