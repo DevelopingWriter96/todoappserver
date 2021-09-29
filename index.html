@@ -16,19 +16,27 @@
 
   <div id="root" class="d-flex flex-column">
     <div class="input d-flex justify-content-center">
-      <input id="newTaskName" type="text" placeholder="New todo">
-      <select id="filterDropdown" class="ms-1">
-        <option selected>Select Category</option>
-      </select>
-      <button id="addTaskButton" type="button" class="btn btn-success">Add Todo</button>
-      <button id="saveTaskButton" type="button" class="btn btn-success" style="display: none;">Save Task</button>
+      <div class="d-flex justify-content-between w-25"> 
+        <input id="newTaskName" class="p-2 w-50" type="text" placeholder="New todo">
+        <select id="filterDropdown" class="ms-2 w-25">
+          <option selected>Select Category</option>
+        </select>
+        <button id="addTaskButton" type="button" class="btn btn-success ms-2">Add Todo</button>
+        <button id="saveTaskButton" type="button" class="btn btn-success" style="display: none;">Save Task</button>
+        </div>
     </div>
     <div class="d-flex justify-content-center my-3">
-      <input id="newCategoryName" type="text" placeholder="New Category">
-      <button id="addCategoryButton" type="button" class="btn btn-success ms-2">Create Category</button>
-        <select id="filterDropdown" class="ms-3">
-          <option selected>Filter By Category</option>
-        </select>
+      <div class="w-25 d-flex justify-content-between">        
+        <input id="newCategoryName" class="p-2" type="text" placeholder="New Category">
+        <button id="addCategoryButton" type="button" class="btn btn-success">Create Category</button>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <div class="w-50">
+      <select id="filterDropdown" class="ms-3 float-end">
+        <option selected>Filter By Category</option>
+      </select>
+    </div>
     </div>
     <div id="taskList" class="row d-flex justify-content-center">
       <!-- tasks go here -->
