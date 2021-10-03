@@ -20,28 +20,28 @@ let todos = [
 ]
 let categories = []
 
-const updateTodos = () => {
+const updateTodos = (list) => {
     let taskList = document.querySelector('#taskList')
     taskList.innerHTML = `<ul>`
 
-    todos.map((todo) => {
+    list.map((list) => {
         taskList.innerHTML +=
             `<li class="card w-50">
                 <div class="card-body">
                     <div>
-                    <button type="button" id="task${todo.id}Close" class="btn-close float-end ms-2 mt-1" aria-label="Close" todoID="${todo.id}" buttonFunc="close"></button>
-                        <button type="button" id="task${todo.id}Edit" class="btn btn-success btn-sm float-end" todoID="${todo.id}" buttonFunc="edit">Edit</button>
+                    <button type="button" id="task${list.id}Close" class="btn-close float-end ms-2 mt-1" aria-label="Close" todoID="${list.id}" buttonFunc="close"></button>
+                        <button type="button" id="task${list.id}Edit" class="btn btn-success btn-sm float-end" todoID="${list.id}" buttonFunc="edit">Edit</button>
                     </div>
-                    <input type="checkbox" id="task${todo.id}Completed" name="task${todo.id}" ${todo.completed == true ? 'checked' : ''} todoId="${todo.id}" buttonFunc="complete">
-                    <label for="task${todo.id}"> ${todo.taskName}</label><br>
+                    <input type="checkbox" id="task${list.id}Completed" name="task${list.id}" ${list.completed == true ? 'checked' : ''} todoId="${list.id}" buttonFunc="complete">
+                    <label for="task${list.id}"> ${list.taskName}</label><br>
+                    <label for="task${list.id}"> ${list.category}</label><br>
+                    
                 </div>
             </li>`;
     })
     taskList.innerHTML += `</ul>`
 
     taskList.addEventListener('click', eventClickHandler)
-
-    getAllCategories()
 
 }
 
@@ -77,7 +77,7 @@ document.querySelector("#addTaskButton").addEventListener('click', () => {
         inputBox.value = "";
 
         todos.push({ id: newId, taskName: newTaskName, completed: false, category: newCategory })
-        updateTodos();
+        updateTodos(todos);
     }
 })
 
@@ -99,9 +99,13 @@ document.querySelector("#addCategoryButton").addEventListener('click', () => {
     }
 
     inputBox.value = "";
+
+    todos.push({ id: newId, taskName: newTaskName, completed: false, category: newCategory })
+    updateTodos(todos);
 })
 
-updateTodos();
+updateTodos(todos);
+
 
 
 function deleteTodo(id) {
@@ -112,7 +116,7 @@ function deleteTodo(id) {
 
     })
 
-    updateTodos()
+    updateTodos(todos)
 }
 
 function completeTodo(id) {
@@ -130,7 +134,7 @@ function deleteCompleted() {
             return element
         }
     })
-    updateTodos()
+    updateTodos(todos)
 }
 
 let todoBeingEdited = [];
@@ -155,7 +159,7 @@ const saveTodo = () => {
     document.querySelector('#newTaskName').value = '';
     document.querySelector('#saveTaskButton').style.display = 'none';
     document.querySelector('#addTaskButton').style.display = 'block';
-    updateTodos()
+    updateTodos(todos)
 }
 
 document.querySelector('#saveTaskButton').addEventListener('click', () => {
@@ -168,7 +172,7 @@ function getAllCategories() {
     categories = todos.map((todo) => {
         if (!categories.includes(todo.category) && todo.category != '') {
 
-            let dropdowns = document.querySelectorAll("#filterDropdown");
+            let dropdowns = document.querySelectorAll(".categoryPicker");
             dropdowns.forEach((dropdown) => {
                 const newElement = document.createElement('option');
                 newElement.value = `${todo.category}`
@@ -180,7 +184,15 @@ function getAllCategories() {
     })
 }
 
-function sortTodos() {
+//view by Categories
+const filterList = (event) => {
+    let selectElement = event.target;
+    let value = selectElement.value;
+    let filteredList = todos.filter(e => e.category == value);
+    filteredList.length > 0 ? updateTodos(filteredList) : updateTodos(todos);
 
-}
+} 
+const filterDropDown = document.getElementById('filterCategory');
+filterDropDown.addEventListener('change', filterList);
 
+getAllCategories();
