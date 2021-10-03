@@ -89,7 +89,7 @@ document.querySelector("#addCategoryButton").addEventListener('click', () => {
     if (!categories.includes(newCategory) && newCategory != "") {
         categories.push(newCategory)
 
-        let dropdowns = document.querySelectorAll('#filterDropdown')
+        let dropdowns = document.querySelectorAll('.categoryPicker')
         dropdowns.forEach((dropdown) => {
             const newElement = document.createElement('option');
             newElement.value = newCategory
