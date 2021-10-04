@@ -29,7 +29,7 @@ const updateTodos = (list) => {
                 <div class="card-body">
                     <div>
                     <button type="button" id="task${list.id}Close" class="btn-close float-end ms-2 mt-1" aria-label="Close" todoID="${list.id}" buttonFunc="close"></button>
-                        <button type="button" id="task${list.id}Edit" class="btn btn-success btn-sm float-end" todoID="${list.id}" buttonFunc="edit">Edit</button>
+                        <button type="button" id="task${list.id}Edit" class="btn btn-success btn-sm float-end" todoID="${list.id}" buttonFunc="edit" taskName="${list.taskName}" categoryName="${list.category}">Edit</button>
                     </div>
                     <input type="checkbox" id="task${list.id}Completed" name="task${list.id}" ${list.completed == true ? 'checked' : ''} todoId="${list.id}" buttonFunc="complete">
                     <label for="task${list.id}"> ${list.taskName}</label><br>
@@ -53,7 +53,7 @@ function eventClickHandler(event) {
   } else if (event.target.attributes.buttonFunc.value == "close") {
     deleteTodo(event.target.attributes.todoId.value)
   } else if (event.target.attributes.buttonFunc.value == "edit") {
-    editTodo(event.target.attributes.todoId.value)
+    editTodo(event.target.attributes)
   }
 }
 
@@ -130,8 +130,6 @@ document.querySelector("#addCategoryButton").addEventListener('click', () => {
   updateTodos(todos);
 })
 
-
-
 document.querySelector("#editCategoryButton").addEventListener('click', (event) => {
   let selectedItem = document.querySelector("#filterCategory").value;
 
@@ -156,15 +154,6 @@ function editCategory(categoryName) {
   document.querySelector('#addCategoryButton').innerText = 'Save';
 }
 
-function editTodo(index) {
-  let todo = todos[index - 1];
-  todoBeingEdited.push(todo);
-  document.querySelector('#newTaskName').value = todo.taskName;
-  document.querySelector('#addSelectCategory').value = todo.category;
-  document.querySelector('#saveTaskButton').style.display = 'block';
-  document.querySelector('#addTaskButton').style.display = 'none';
-}
-
 function completeTodo(id) {
   todos = todos.filter(element => {
     if (element.id == id) {
@@ -183,31 +172,39 @@ function deleteCompleted() {
   updateTodos(todos)
 }
 
-let todoBeingEdited = [];
 
-
-
+let todoIdToBeEdited = -1;
 //edit 
-function editTodo(index) {
-  let todo = todos[index - 1];
-  todoBeingEdited.push(todo);
-  document.querySelector('#newTaskName').value = todo.taskName;
-  document.querySelector('#addSelectCategory').value = todo.category;
+function editTodo(task) {
+  todoIdToBeEdited = parseInt(task.todoId.value);
+  document.querySelector('#newTaskName').value = task.taskName.value;
+  document.querySelector('#addSelectCategory').value = task.categoryName.value;
   document.querySelector('#saveTaskButton').style.display = 'block';
   document.querySelector('#addTaskButton').style.display = 'none';
 }
 
 //save 
 const saveTodo = () => {
-  let value = document.querySelector('#newTaskName').value;
-  let todoToSave = todoBeingEdited.pop();
-  let newId = Math.floor(Math.random() * 1000000);
+  let newTaskName = document.querySelector('#newTaskName').value;
   let selectedCategory = document.querySelector('#addSelectCategory');
-  todos[todoToSave.id - 1].taskName = value;
+
+  if (selectedCategory.selectedIndex == 0) {
+    selectedCategory.value = "Uncategorized";
+  }
+
+  todos.forEach(element => {
+    if (element.id === todoIdToBeEdited) {
+      element.category = selectedCategory.value;
+      element.taskName = newTaskName;
+    }
+
+  });
+
   document.querySelector('#newTaskName').value = '';
   document.querySelector('#saveTaskButton').style.display = 'none';
   document.querySelector('#addTaskButton').style.display = 'block';
   selectedCategory.selectedIndex = 0;
+  todoIdToBeEdited = -1;
   updateTodos(todos);
 }
 
