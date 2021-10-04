@@ -11,39 +11,41 @@
   <title>Todo App</title>
 </head>
 
-<body class="d-flex justify-content-center flex-column">
+<body>
   <h1 id="title">Todo App</h1>
 
-  <div id="root" class="d-flex flex-column">
-    <div class="input d-flex justify-content-center">
-      <div class="d-flex justify-content-between w-25"> 
-        <input id="newTaskName" class="p-2 w-50" type="text" placeholder="New todo">
-        <select id="filterDropdown" class="categoryPicker ms-2 w-25">
+  <div id="root" class="container">
+    <div id="newTaskSection" class="input row new-row">
+      <div>
+        <input id="newTaskName" type="text" placeholder="New todo">
+        <select id="addSelectCategory" class="categoryPicker">
           <option selected>Select Category</option>
         </select>
-        <button id="addTaskButton" type="button" class="btn btn-success ms-2">Add Todo</button>
+        <button id="addTaskButton" type="button" class="btn btn-success">Add Todo</button>
         <button id="saveTaskButton" type="button" class="btn btn-success" style="display: none;">Save Task</button>
-        </div>
+      </div>
     </div>
-    <div class="d-flex justify-content-center my-3">
-      <div class="w-25 d-flex justify-content-between">        
-        <input id="newCategoryName" class="p-2" type="text" placeholder="New Category">
+    <div id="newCategorySection" class="row new-row">
+      <div>
+        <input id="newCategoryName" type="text" placeholder="New Category">
         <button id="addCategoryButton" type="button" class="btn btn-success">Create Category</button>
       </div>
     </div>
-    <div class="d-flex justify-content-center">
-      <div class="w-50">
-      <select id="filterCategory" class="categoryPicker ms-3 float-end"> 
-        <option selected>Filter By Category</option>
-      </select>
+    <div id="categoryFilterSection" class="row new-row">
+      <div>
+        <select id="filterCategory" class="categoryPicker">
+          <option selected>Filter By Category</option>
+        </select>
+        <button type="button" id="editCategoryButton" class="btn btn-success btn-sm">Edit</button>
+
+      </div>
     </div>
-    </div>
-    <div id="taskList" class="row d-flex justify-content-center">
+    <div id="taskList">
       <!-- tasks go here -->
     </div>
-    <div class="d-flex justify-content-center">
-      <div class="w-50 mt-3">
-        <button type="button" class="btn btn-success float-end" onclick="deleteCompleted()">Delete Completed Tasks</button>
+    <div>
+      <div id="deleteCompletedSection">
+        <button type="button" class="btn btn-success" onclick="deleteCompleted()">Delete Completed Tasks</button>
       </div>
     </div>
   </div>

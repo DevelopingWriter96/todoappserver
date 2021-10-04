@@ -1,20 +1,33 @@
 #root {
-  display: flex;
+  display: grid;
   justify-content: center;
+
 }
 
-#title {
-  display: flex;
-  justify-content: center;
+#title,
+#newTaskSection,
+#newCategorySection,
+#categoryFilterSection,
+#taskList {
+  display: grid;
   margin: 1rem;
+  justify-items: center;
+}
+
+#newTaskSection,
+#newCategorySection,
+#categoryFilterSection,
+#deleteCompletedSection {
+  display: grid;
+  justify-content: flex-end;
+  flex-flow: row wrap;
 }
 
 .card {
   margin: .3rem;
-  /* width: 15rem; */
+  width: 100%;
 }
 
 .card-body:hover {
   cursor: pointer;
 }
-
